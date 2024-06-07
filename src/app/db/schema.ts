@@ -18,18 +18,19 @@ export const posts = pgTable("posts", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
-export const jwtRefresh = pgTable("jwtRefresh", {
+export const userSessions = pgTable("user_sessions", {
   id: serial("id").primaryKey().unique(),
   token: text("token").notNull(),
   userId: integer("userId")
     .notNull()
     .references(() => users.id),
+  tokenIssuedTime: text("token_issued_time").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
   posts: many(posts), // one user can have many posts
-  jwtRefresh: many(jwtRefresh), //one user may log into their account from multiple locations
+  userSessions: many(userSessions), //one user may log into their account from multiple locations
 }));
 
 export const postsRelations = relations(posts, ({ one }) => ({
@@ -39,9 +40,9 @@ export const postsRelations = relations(posts, ({ one }) => ({
   }), // one post can have one user
 }));
 
-export const refreshTokenRelations = relations(jwtRefresh, ({ one }) => ({
+export const refreshTokenRelations = relations(userSessions, ({ one }) => ({
   user: one(users, {
-    fields: [jwtRefresh.userId],
+    fields: [userSessions.userId],
     references: [users.id],
   }),
 }));

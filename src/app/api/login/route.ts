@@ -1,5 +1,5 @@
 import { db } from "@/app/db/db";
-import { jwtRefresh } from "@/app/db/schema";
+import { userSessions } from "@/app/db/schema";
 import validateEmail from "@/app/helpers/validateEmail";
 import validatePassword from "@/app/helpers/validatePassword";
 import bcrypt from "bcryptjs";
@@ -69,11 +69,15 @@ export async function POST(req: Request) {
     .setProtectedHeader({ alg })
     .setExpirationTime("4 weeks")
     .setSubject(user.id.toString())
+    .setIssuedAt()
     .sign(refreshTokenSecret);
 
   const hashedToken = bcrypt.hashSync(refreshToken, 8)
 
-  await db.insert(jwtRefresh).values({token:hashedToken, userId: user.id}) //stored the refresh token in the db 
+  // get the issuedAtTime for the refresh cookie
+  const {payload} = await jose.jwtVerify(refreshToken, refreshTokenSecret,{})
+
+  await db.insert(userSessions).values({token:hashedToken,tokenIssuedTime:String(payload.iat), userId:user.id}) //stored the refresh token in the db 
 
   // Respond with it
   return Response.json({ accessToken, refreshToken });
