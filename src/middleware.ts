@@ -7,19 +7,30 @@ import * as jose from "jose";
 export async function middleware(request: NextRequest) {
   // check for cookie
 
-  const cookie = cookies().get("Authorization");
+  const jwtCookie = cookies().get("Authorization");
+  const refreshCookie = cookies().get("Refresh")
 
-  if (!cookie) {
+  if(!refreshCookie){
+    return NextResponse.redirect(new URL("/login",request.url))
+  }
+
+  if(refreshCookie){
+    const 
+  }
+
+  if (!jwtCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // validate it
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  const jwt = cookie.value;
+  const accessTokenSecret = new TextEncoder().encode(process.env.JWT_SECRET);
+  const jwt = jwtCookie.value;
 
   try {
-    const { payload } = await jose.jwtVerify(jwt, secret, {});
-    console.log(payload)
+    const { payload, protectedHeader } = await jose.jwtVerify(jwt, accessTokenSecret, {});
+    console.log("userId: ", payload.sub)
+    console.log("protectedHeader: ", protectedHeader)
+
   } catch (error) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

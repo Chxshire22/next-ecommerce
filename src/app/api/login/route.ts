@@ -1,9 +1,9 @@
 import { db } from "@/app/db/db";
+import { jwtRefresh } from "@/app/db/schema";
 import validateEmail from "@/app/helpers/validateEmail";
 import validatePassword from "@/app/helpers/validatePassword";
 import bcrypt from "bcryptjs";
 import * as jose from "jose";
-
 
 export async function POST(req: Request) {
   //Extract data sent in
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   //lookup the user
 
   const user = await db.query.users.findFirst({
-    where: (users, {eq})=>eq(users.email, email),
+    where: (users, { eq }) => eq(users.email, email),
   });
 
   if (!user) {
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     );
   }
 
-  console.log(user)
+  console.log(user);
 
   // compare password
 
@@ -53,15 +53,28 @@ export async function POST(req: Request) {
   }
 
   // Create jwt token
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  const accessTokenSecret = new TextEncoder().encode(process.env.JWT_SECRET);
   const alg = "HS256";
 
-  const jwt = await new jose.SignJWT({})
+  const accessToken = await new jose.SignJWT({})
     .setProtectedHeader({ alg })
-    .setExpirationTime("72h")
+    .setExpirationTime("15 mins")
     .setSubject(user.id.toString())
-    .sign(secret);
+    .sign(accessTokenSecret);
+
+  const refreshTokenSecret = new TextEncoder().encode(
+    process.env.JWT_REFRESH_SECRET
+  );
+  const refreshToken = await new jose.SignJWT({})
+    .setProtectedHeader({ alg })
+    .setExpirationTime("4 weeks")
+    .setSubject(user.id.toString())
+    .sign(refreshTokenSecret);
+
+  const hashedToken = bcrypt.hashSync(refreshToken, 8)
+
+  await db.insert(jwtRefresh).values({token:hashedToken, userId: user.id}) //stored the refresh token in the db 
 
   // Respond with it
-  return Response.json({ token: jwt });
+  return Response.json({ accessToken, refreshToken });
 }

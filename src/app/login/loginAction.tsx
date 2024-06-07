@@ -27,18 +27,25 @@ export default async function signupAction(
     }
   );
 
-  console.log(res)
+  // console.log(res)
 
   const json = await res.json();
-  console.log("json", json);
 
-  cookies().set("Authorization", json.token, {
+  cookies().set("Authorization", json.accessToken, {
     secure: true,
     httpOnly: true,
-    expires: Date.now() + 24 * 60 * 60 * 1000 * 3,
+    expires: Date.now() + 15 * 60 * 1000,
     path: "/",
     sameSite: "strict",
   });
+
+  cookies().set("Refresh", json.refreshToken,{
+    secure:true,
+    httpOnly: true,
+    expires: Date.now() + 24 * 60 * 60 * 1000 * 30,
+    path:"/",
+    sameSite:"strict"
+  })
 
   if (res.ok) {
     redirect("/protected");
