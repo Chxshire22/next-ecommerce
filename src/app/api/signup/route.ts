@@ -23,7 +23,6 @@ export async function POST(req: Request) {
   }
   //hash password
 
-  // const salt = bcrypt.genSaltSync()
 
   const hash = bcrypt.hashSync(password, 8)
 

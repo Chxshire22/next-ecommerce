@@ -37,7 +37,6 @@ export async function POST(req: Request) {
     );
   }
 
-  console.log(user);
 
   // compare password
 
@@ -72,9 +71,10 @@ export async function POST(req: Request) {
     .setIssuedAt()
     .sign(refreshTokenSecret);
 
+  // as refresh tokens allow the users to freely access protected routes as long as the cookie exists, we must protect it like a password so tha attackers on our db cannot use the refresh token.
   const hashedToken = bcrypt.hashSync(refreshToken, 8)
 
-  // get the issuedAtTime for the refresh cookie
+  // get the issuedAtTime for the refresh cookie so it can be identified in the db 
   const {payload} = await jose.jwtVerify(refreshToken, refreshTokenSecret,{})
 
   await db.insert(userSessions).values({token:hashedToken,tokenIssuedTime:String(payload.iat), userId:user.id}) //stored the refresh token in the db 

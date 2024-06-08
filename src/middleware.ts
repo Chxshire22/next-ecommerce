@@ -27,11 +27,9 @@ export async function middleware(request: NextRequest) {
   } else if (!jwtCookie && !refreshCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
   } else if (refreshCookie) {
-
-    console.log("THIS IS RUNNING")
+    console.log("THIS IS RUNNING");
     // check validity against db
     const refreshToken = refreshCookie.value;
-    console.log("refreshToken: ", refreshToken);
     const refreshTokenSecret = new TextEncoder().encode(
       process.env.JWT_REFRESH_SECRET
     );
@@ -44,13 +42,14 @@ export async function middleware(request: NextRequest) {
     // then delete that row, create a new one along with access token
     // send the refresh and access token as response.
     //
-    await fetch(
+    const res = await fetch(
       `${
         process.env.DEPLOYED_BASE_URL
           ? process.env.DEPLOYED_BASE_URL
           : process.env.DEV_BASE_URL
       }/api/refresh-token`,
       {
+
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -64,8 +63,31 @@ export async function middleware(request: NextRequest) {
       }
     );
 
-    // const json = await res.json();
-    //  set cookies again for access token and refresh token
+    const newTokens = await res.json()
+
+    const response = NextResponse.next();
+
+     response.cookies.set({
+       name: "Authorization",
+       value: newTokens.newAccessToken,
+       expires: Date.now() + 15 * 60 * 1000,
+       path: "/",
+       httpOnly: true,
+       secure:true,
+       sameSite:"strict",
+     });
+     response.cookies.set({
+       name: "Refresh",
+       value: newTokens.newRefreshToken,
+       expires: Date.now() + 24 * 60 * 60 * 1000 * 30,
+       path: "/",
+       httpOnly: true,
+       secure: true,
+       sameSite: "strict",
+     });
+     return response
+
+   
   }
 }
 
