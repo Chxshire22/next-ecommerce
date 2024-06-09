@@ -5,7 +5,7 @@ import { db } from "../db/db";
 import * as jose from "jose";
 import { userSessions } from "../db/schema";
 import { and, eq } from "drizzle-orm";
-import LogoutBtn from "./LogoutBtn";
+import SubmitBtn from "./SubmitBtn";
 
 export default function AdminNav() {
 	const logoutAction = async () => {
@@ -47,7 +47,9 @@ export default function AdminNav() {
 		redirect("/login");
 	};
 	return (
+
 		<nav className="fixed right-4 top-4">
+		
 			<div className="dropdown dropdown-bottom dropdown-end">
 				<div tabIndex={0} role="button" className="btn m-1"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.95" d="M5 17h8m-8-5h14m-8-5h8"/></svg></div>
 				<ul
@@ -70,7 +72,7 @@ export default function AdminNav() {
 						action={logoutAction}
 						className="flex flex-row justify-center items-center my-2"
 					>
-						<LogoutBtn />
+						<SubmitBtn btnLabel="Logout" btnStyle="error" />
 					</form>
 				</ul>
 			</div>

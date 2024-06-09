@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 import loginAction from "./loginAction";
-import AuthBtn from "../components/AuthBtn";
+import SubmitBtn from "../components/SubmitBtn";
 
 const Login = () => {
 	const [error, formAction] = useFormState(loginAction, undefined);
@@ -49,7 +49,7 @@ const Login = () => {
 						placeholder="Password"
 					/>
 				</label>
-				<AuthBtn />
+				<SubmitBtn btnLabel="Login" btnStyle="primary" />
 			</form>
 			{error && <p className="text-sm font-bold text-red-400 text-center" >{error}</p>}
 		</div>
