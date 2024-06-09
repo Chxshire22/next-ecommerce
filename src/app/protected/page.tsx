@@ -15,7 +15,7 @@ const Protected = () => {
 				under Records
 			</p>
 			<p>show how much money is made</p>
-			<p>show user's sessions, and let them log out of other sessions if needed</p>
+			<p>show user&apos;s sessions, and let them log out of other sessions if needed</p>
 		</div>
 	);
 };
