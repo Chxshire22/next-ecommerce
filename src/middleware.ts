@@ -3,12 +3,11 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import * as jose from "jose";
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
 	// check for cookie
 
 	const jwtCookie = cookies().get("Authorization");
-	let refreshCookie = cookies().get("Refresh");
+	const refreshCookie = cookies().get("Refresh");
 
 	const accessTokenSecret = new TextEncoder().encode(process.env.JWT_SECRET);
 	if (jwtCookie) {
