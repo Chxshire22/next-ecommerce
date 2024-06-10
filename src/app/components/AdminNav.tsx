@@ -72,7 +72,7 @@ export default function AdminNav() {
 						action={logoutAction}
 						className="flex flex-row justify-center items-center my-2"
 					>
-						<SubmitBtn btnLabel="Logout" btnStyle="error" />
+						<SubmitBtn btnLabel="Logout" btnStyle="btn-error" />
 					</form>
 				</ul>
 			</div>

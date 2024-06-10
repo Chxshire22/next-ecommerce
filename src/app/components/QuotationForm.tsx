@@ -104,7 +104,7 @@ export default function QuotationForm() {
 					className="input input-bordered w-full max-w-xs"
 				/>
 			</label>
-			<SubmitBtn btnLabel="Submit" btnStyle="primary" />
+			<SubmitBtn btnLabel="Submit" btnStyle="btn-primary" />
 		</form>
 	);
 }

@@ -49,7 +49,7 @@ const Login = () => {
 						placeholder="Password"
 					/>
 				</label>
-				<SubmitBtn btnLabel="Login" btnStyle="primary" />
+				<SubmitBtn btnLabel="Login" btnStyle="btn-primary" />
 			</form>
 			{error && <p className="text-sm font-bold text-red-400 text-center" >{error}</p>}
 		</div>

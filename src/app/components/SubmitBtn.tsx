@@ -14,7 +14,7 @@ export default function SubmitBtn({
 		<button
 			type="submit"
 			disabled={isLoading}
-			className={`btn btn-${btnStyle}`}
+			className={`btn ${btnStyle}`}
 		>
 			{isLoading ? (
 				<span className="loading loading-dots loading-lg"></span>
