@@ -51,7 +51,7 @@ export default function AdminNav() {
 		<nav className="fixed right-4 top-4">
 		
 			<div className="dropdown dropdown-bottom dropdown-end">
-				<div tabIndex={0} role="button" className="btn m-1"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.95" d="M5 17h8m-8-5h14m-8-5h8"/></svg></div>
+				<div tabIndex={0} role="button" className="btn m-1"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.95" d="M5 17h8m-8-5h14m-8-5h8"/></svg></div>
 				<ul
 					tabIndex={0}
 					className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"

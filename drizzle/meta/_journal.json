@@ -8,6 +8,13 @@
       "when": 1717774327713,
       "tag": "0000_married_maginty",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1718036796388,
+      "tag": "0001_faulty_whizzer",
+      "breakpoints": true
     }
   ]
 }
