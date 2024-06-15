@@ -23,8 +23,6 @@ type ParsedFormData = GeneralQuoteDetails & {
 
 export default function parseFormData(formData: FormData) {
   const formObject = Object.fromEntries(formData);
-  // console.log(formObject);
-
   const generalQuoteDetails: GeneralQuoteDetails = {
     attention: formObject.attention.toString(),
     entity: formObject.entity.toString(),
@@ -66,6 +64,5 @@ export default function parseFormData(formData: FormData) {
     quoteItems: itemArray,
   };
 
-  console.log(parsedFormData);
   return parsedFormData;
 }

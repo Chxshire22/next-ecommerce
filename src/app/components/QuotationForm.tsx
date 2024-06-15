@@ -5,8 +5,9 @@ import SubmitBtn from "./SubmitBtn";
 export default function QuotationForm() {
   const submitQuotationFormAction = async (formData: FormData) => {
     "use server";
-    parseFormData(formData);
-    console.log("Form submitted");
+    const parsedFormData = parseFormData(formData);
+    //take parsed form data and pass into react pdf
+    console.log(parsedFormData);
   };
 
   return (
