@@ -43,7 +43,7 @@ export default function QuotationForm() {
         <input
           type="date"
           placeholder="Type here"
-          name="date-of-quotation"
+          name="dateOfQuotation"
           className="input input-bordered w-full max-w-xs"
         />
       </label>
@@ -53,7 +53,7 @@ export default function QuotationForm() {
         </div>
         <input
           type="date"
-          name="expiry-date"
+          name="expiryDate"
           placeholder="expiry-date"
           className="input input-bordered w-full max-w-xs"
         />
@@ -64,7 +64,7 @@ export default function QuotationForm() {
         </div>
         <input
           type="text"
-          name="building-street-name"
+          name="buildingAndStreetName"
           placeholder="BLK 123, Any Rd."
           className="input input-bordered w-full max-w-xs"
         />
@@ -75,7 +75,7 @@ export default function QuotationForm() {
         </div>
         <input
           type="text"
-          name="unit-number"
+          name="unitNumber"
           placeholder="#01-123"
           className="input input-bordered w-full max-w-xs"
         />
@@ -86,7 +86,7 @@ export default function QuotationForm() {
         </div>
         <input
           type="text"
-          name="postal-code"
+          name="postalCode"
           placeholder="129423"
           className="input input-bordered w-full max-w-xs"
         />
@@ -95,7 +95,7 @@ export default function QuotationForm() {
         <label className="label cursor-pointer flex flex-row gap-4">
           <input
             type="checkbox"
-            name="payment-50-deposit"
+            name="paymentDeposit"
             className="checkbox checkbox-primary"
           />
 
@@ -109,7 +109,7 @@ export default function QuotationForm() {
         <label className="label cursor-pointer flex flex-row gap-4">
           <input
             type="checkbox"
-            name="payment-cash-paynow"
+            name="paymentCashPaynow"
             className="checkbox checkbox-primary"
           />
 
@@ -126,7 +126,7 @@ export default function QuotationForm() {
         </div>
         <input
           type="number"
-          name="warranty-period"
+          name="warrantyPeriod"
           placeholder="No. of days"
           className="input input-bordered w-full max-w-xs"
           inputMode="numeric"
