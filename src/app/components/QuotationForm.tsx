@@ -1,10 +1,11 @@
+import parseFormData from "../helpers/parseFormData";
 import QuotationItems from "./QuotationItems";
 import SubmitBtn from "./SubmitBtn";
 
 export default function QuotationForm() {
   const submitQuotationFormAction = async (formData: FormData) => {
     "use server";
-    console.log(formData);
+    parseFormData(formData);
     console.log("Form submitted");
   };
 
@@ -59,11 +60,11 @@ export default function QuotationForm() {
       </label>
       <label className="form-control w-full max-w-xs">
         <div className="label">
-          <span className="label-text font-bold">Address Line 3</span>
+          <span className="label-text font-bold">Building and Street Name</span>
         </div>
         <input
           type="text"
-          name="address-line-1"
+          name="building-street-name"
           placeholder="BLK 123, Any Rd."
           className="input input-bordered w-full max-w-xs"
         />
