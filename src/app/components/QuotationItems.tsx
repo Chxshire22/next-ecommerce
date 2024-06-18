@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 
 export default function QuotationItems() {
   type Item = number;
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>([1]);
 
   type useRefType = HTMLUListElement | null;
   const itemRef = useRef<useRefType>(null);
@@ -18,7 +18,7 @@ export default function QuotationItems() {
   };
 
   useEffect(() => {
-    if (items.length > 0)
+    if (items.length > 1)
       itemRef.current?.lastElementChild?.scrollIntoView({ behavior: "smooth" });
   }, [items]);
 
@@ -51,6 +51,7 @@ export default function QuotationItems() {
               <textarea
                 className="textarea textarea-bordered h-24"
                 name={`itemDescription${item}`}
+                required
                 placeholder="Supply labour and materials for..."
               ></textarea>
               <div className="label">
@@ -67,6 +68,7 @@ export default function QuotationItems() {
                 <input
                   type="number"
                   name={`quantity${item}`}
+                  required
                   inputMode="numeric"
                   placeholder="How many?"
                   className="input input-bordered w-full max-w-xs"
@@ -84,6 +86,7 @@ export default function QuotationItems() {
                 <input
                   type="number"
                   name={`itemCost${item}`}
+                  required
                   inputMode="decimal"
                   placeholder="How much?"
                   className="input input-bordered w-full max-w-xs"

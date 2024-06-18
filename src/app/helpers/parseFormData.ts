@@ -1,26 +1,4 @@
-type Items = {
-  itemDescription: string;
-  quantity: number;
-  itemCost: number;
-}[];
-
-type GeneralQuoteDetails = {
-  attention: string;
-  entity?: string;
-  dateOfQuotation: Date;
-  expiryDate: Date;
-  buildingAndStreetName: string;
-  unitNumber?: string;
-  postalCode: string;
-  paymentDeposit?: boolean;
-  paymentCashPaynow?: boolean;
-  warrantyPeriod?: number;
-};
-
-type ParsedFormData = GeneralQuoteDetails & {
-  quoteItems: Items;
-};
-
+import { GeneralQuoteDetails, Items, ParsedFormData } from "../types";
 export default function parseFormData(formData: FormData) {
   const formObject = Object.fromEntries(formData);
   const generalQuoteDetails: GeneralQuoteDetails = {
@@ -33,10 +11,8 @@ export default function parseFormData(formData: FormData) {
     buildingAndStreetName: formObject.buildingAndStreetName.toString(),
     unitNumber: formObject.unitNumber.toString(),
     postalCode: formObject.postalCode.toString(),
-    paymentDeposit:
-      formObject.paymentDeposit.toString() === "on" ? true : false,
-    paymentCashPaynow:
-      formObject.paymentCashPaynow.toString() === "on" ? true : false,
+    paymentDeposit: formObject.paymentDeposit ? true : false,
+    paymentCashPaynow: formObject.paymentCashPaynow ? true : false,
     warrantyPeriod: Number(formObject.warrantyPeriod.toString()),
   };
 

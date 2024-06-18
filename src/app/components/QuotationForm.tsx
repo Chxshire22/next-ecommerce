@@ -1,14 +1,21 @@
-import parseFormData from "../helpers/parseFormData";
+"use client";
+import { useEffect, useRef } from "react";
+import { submitQuotationFormAction } from "../actions/submitQuotationFormAction";
 import QuotationItems from "./QuotationItems";
 import SubmitBtn from "./SubmitBtn";
+import { GeneralQuoteDetails } from "../types";
 
 export default function QuotationForm() {
-  const submitQuotationFormAction = async (formData: FormData) => {
-    "use server";
-    const parsedFormData = parseFormData(formData);
-    //take parsed form data and pass into react pdf
-    console.log(parsedFormData);
-  };
+  const attentionRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const storedAttention = sessionStorage.getItem("attention");
+
+    // Set the input value only if a value exists in sessionStorage
+    if (storedAttention && attentionRef.current) {
+      attentionRef.current.value = storedAttention;
+    }
+  }, []);
 
   return (
     <form
@@ -22,8 +29,13 @@ export default function QuotationForm() {
         <input
           type="text"
           placeholder="Ms. Regina Phalange"
+          required
           name="attention"
           className="input input-bordered w-full max-w-xs"
+          ref={attentionRef}
+          onChange={(e) => {
+            sessionStorage.setItem("attention", e.target.value);
+          }}
         />
       </label>
       <label className="form-control w-full max-w-xs">
@@ -44,6 +56,7 @@ export default function QuotationForm() {
         <input
           type="date"
           placeholder="Type here"
+          required
           name="dateOfQuotation"
           className="input input-bordered w-full max-w-xs"
         />
@@ -55,6 +68,7 @@ export default function QuotationForm() {
         <input
           type="date"
           name="expiryDate"
+          required
           placeholder="expiry-date"
           className="input input-bordered w-full max-w-xs"
         />
@@ -67,6 +81,7 @@ export default function QuotationForm() {
           type="text"
           name="buildingAndStreetName"
           placeholder="BLK 123, Any Rd."
+          required
           className="input input-bordered w-full max-w-xs"
         />
       </label>
@@ -78,6 +93,7 @@ export default function QuotationForm() {
           type="text"
           name="unitNumber"
           placeholder="#01-123"
+          required
           className="input input-bordered w-full max-w-xs"
         />
       </label>
@@ -87,6 +103,7 @@ export default function QuotationForm() {
         </div>
         <input
           type="text"
+          required
           name="postalCode"
           placeholder="129423"
           className="input input-bordered w-full max-w-xs"
@@ -129,6 +146,7 @@ export default function QuotationForm() {
           type="number"
           name="warrantyPeriod"
           placeholder="No. of days"
+          required
           className="input input-bordered w-full max-w-xs"
           inputMode="numeric"
           pattern="[0-9]"
