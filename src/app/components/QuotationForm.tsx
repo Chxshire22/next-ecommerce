@@ -3,18 +3,54 @@ import { useEffect, useRef } from "react";
 import { submitQuotationFormAction } from "../actions/submitQuotationFormAction";
 import QuotationItems from "./QuotationItems";
 import SubmitBtn from "./SubmitBtn";
-import { GeneralQuoteDetails } from "../types";
 
 export default function QuotationForm() {
   const attentionRef = useRef<HTMLInputElement | null>(null);
+  const entityRef = useRef<HTMLInputElement | null>(null);
+  const dateOfQuotationRef = useRef<HTMLInputElement | null>(null);
+  const expiryDateRef = useRef<HTMLInputElement | null>(null);
+  const buildingAndStreetNameRef = useRef<HTMLInputElement | null>(null);
+  const unitNumberRef = useRef<HTMLInputElement | null>(null);
+  const postalCodeRef = useRef<HTMLInputElement | null>(null);
+  const paymentDepositRef = useRef<HTMLInputElement | null>(null);
+  const paymentCashPaynowRef = useRef<HTMLInputElement | null>(null);
+  const warrantyPeriodRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    const storedAttention = sessionStorage.getItem("attention");
+    const storedInput = {
+      attention: sessionStorage.getItem("attention"),
+      entity: sessionStorage.getItem("entity"),
+      dateOfQuotation: sessionStorage.getItem("dateOfQuotation"),
+      expiryDate: sessionStorage.getItem("expiryDate"),
+      buildingAndStreetName: sessionStorage.getItem("buildingAndStreetName"),
+      unitNumber: sessionStorage.getItem("unitNumber"),
+      postalCode: sessionStorage.getItem("postalCode"),
+      paymentDeposit: sessionStorage.getItem("paymentDeposit"),
+      paymentCashPaynow: sessionStorage.getItem("paymentCashPaynow"),
+      warrantyPeriod: sessionStorage.getItem("warrantyPeriod"),
+    };
 
-    // Set the input value only if a value exists in sessionStorage
-    if (storedAttention && attentionRef.current) {
-      attentionRef.current.value = storedAttention;
-    }
+    if (storedInput.attention && attentionRef.current)
+      attentionRef.current.value = storedInput.attention;
+    if (storedInput.entity && entityRef.current)
+      entityRef.current.value = storedInput.entity;
+    if (storedInput.dateOfQuotation && dateOfQuotationRef.current)
+      dateOfQuotationRef.current.value = storedInput.dateOfQuotation;
+    if (storedInput.expiryDate && expiryDateRef.current)
+      expiryDateRef.current.value = storedInput.expiryDate;
+    if (storedInput.buildingAndStreetName && buildingAndStreetNameRef.current)
+      buildingAndStreetNameRef.current.value =
+        storedInput.buildingAndStreetName;
+    if (storedInput.unitNumber && unitNumberRef.current)
+      unitNumberRef.current.value = storedInput.unitNumber;
+    if (storedInput.postalCode && postalCodeRef.current)
+      postalCodeRef.current.value = storedInput.postalCode;
+    if (storedInput.paymentDeposit && paymentDepositRef.current)
+      paymentDepositRef.current.value = storedInput.paymentDeposit;
+    if (storedInput.paymentCashPaynow && paymentCashPaynowRef.current)
+      paymentCashPaynowRef.current.value = storedInput.paymentCashPaynow;
+    if (storedInput.warrantyPeriod && warrantyPeriodRef.current)
+      warrantyPeriodRef.current.value = storedInput.warrantyPeriod;
   }, []);
 
   return (
@@ -47,6 +83,10 @@ export default function QuotationForm() {
           placeholder="ACME Pte Ltd"
           name="entity"
           className="input input-bordered w-full max-w-xs"
+          ref={entityRef}
+          onChange={(e) => {
+            sessionStorage.setItem("entity", e.target.value);
+          }}
         />
       </label>
       <label className="form-control w-full max-w-xs">
@@ -59,6 +99,10 @@ export default function QuotationForm() {
           required
           name="dateOfQuotation"
           className="input input-bordered w-full max-w-xs"
+          ref={dateOfQuotationRef}
+          onChange={(e) => {
+            sessionStorage.setItem("dateOfQuotation", e.target.value);
+          }}
         />
       </label>
       <label className="form-control w-full max-w-xs">
@@ -71,6 +115,10 @@ export default function QuotationForm() {
           required
           placeholder="expiry-date"
           className="input input-bordered w-full max-w-xs"
+          ref={expiryDateRef}
+          onChange={(e) => {
+            sessionStorage.setItem("expiryDate", e.target.value);
+          }}
         />
       </label>
       <label className="form-control w-full max-w-xs">
@@ -83,6 +131,10 @@ export default function QuotationForm() {
           placeholder="BLK 123, Any Rd."
           required
           className="input input-bordered w-full max-w-xs"
+          ref={buildingAndStreetNameRef}
+          onChange={(e) => {
+            sessionStorage.setItem("buildingAndStreetName", e.target.value);
+          }}
         />
       </label>
       <label className="form-control w-full max-w-xs">
@@ -95,6 +147,10 @@ export default function QuotationForm() {
           placeholder="#01-123"
           required
           className="input input-bordered w-full max-w-xs"
+          ref={unitNumberRef}
+          onChange={(e) => {
+            sessionStorage.setItem("unitNumber", e.target.value);
+          }}
         />
       </label>
       <label className="form-control w-full max-w-xs">
@@ -107,6 +163,10 @@ export default function QuotationForm() {
           name="postalCode"
           placeholder="129423"
           className="input input-bordered w-full max-w-xs"
+          ref={postalCodeRef}
+          onChange={(e) => {
+            sessionStorage.setItem("postalCode", e.target.value);
+          }}
         />
       </label>
       <div className="form-control max-w-xs">
@@ -115,6 +175,10 @@ export default function QuotationForm() {
             type="checkbox"
             name="paymentDeposit"
             className="checkbox checkbox-primary"
+            ref={paymentDepositRef}
+            onChange={(e) => {
+              sessionStorage.setItem("paymentDeposit", e.target.value);
+            }}
           />
 
           <span className="label-text">
@@ -129,6 +193,10 @@ export default function QuotationForm() {
             type="checkbox"
             name="paymentCashPaynow"
             className="checkbox checkbox-primary"
+            ref={paymentCashPaynowRef}
+            onChange={(e) => {
+              sessionStorage.setItem("paymentCashPaynow", e.target.value);
+            }}
           />
 
           <span className="label-text">
@@ -150,6 +218,10 @@ export default function QuotationForm() {
           className="input input-bordered w-full max-w-xs"
           inputMode="numeric"
           pattern="[0-9]"
+          ref={warrantyPeriodRef}
+          onChange={(e) => {
+            sessionStorage.setItem("warrantyPeriod", e.target.value);
+          }}
         />
       </label>
       <QuotationItems />
