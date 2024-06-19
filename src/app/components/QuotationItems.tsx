@@ -22,6 +22,8 @@ export default function QuotationItems() {
       itemRef.current?.lastElementChild?.scrollIntoView({ behavior: "smooth" });
   }, [items]);
 
+  //this part of the form is dynamic, need to learn more about useRef to be able to dynamically name refs. setting sessionStorage is no issue
+
   return (
     <ul className="w-full flex flex-col  max-w-xs" ref={itemRef}>
       {items.map((item) => {
